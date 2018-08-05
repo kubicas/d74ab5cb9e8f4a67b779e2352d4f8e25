@@ -1,0 +1,83 @@
+\ifdefined\BOOKCLASS
+    \documentclass[11pt,a4paper]{book}
+\fi %BOOKCLASS
+
+\ifdefined\BEAMERCLASS
+    \documentclass[aspectratio=169]{beamer}
+\fi %BEAMERCLASS
+
+\usepackage{MnSymbol}     % for e.g. linebreak with listings
+\usepackage[T1]{fontenc}  % for \guillemotleft and \guillemotright
+\usepackage{listings}     % code listings
+\usepackage{longtable}    % auto-breaking tables
+\usepackage{ltcaption}    % fix captions for long tables
+\usepackage{parskip}      % handle non-indented paragraphs "properly"
+
+\usepackage{hyperref}     % to create hyperlinks within the document
+\usepackage{mdwlist}      % for special itemize environments
+\usepackage[super]{nth}   % for second, third, etc
+\usepackage{amsthm}       % for theorems, lemmas, definitions
+\usepackage{eurosym}      % for the euro symbol
+\usepackage{siunitx}      % for si units, degrees
+\usepackage{graphicx}     % to support psfrag
+\usepackage[scanall]      % to scan all figures
+           {psfrag}       % for \tex commands in eps pictures
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+
+\ifdefined\BOOKCLASS
+    \usepackage{fullpage}     % Set all page margins to 1.5cm
+    \usepackage{appendix}     % for appendixes
+    \usepackage{makeidx}      % for \see and \printindex
+    \usepackage[nottoc]
+               {tocbibind}    % to add document elements like a bibliography or an index to the Table of Contents
+    \makeindex
+\fi %BOOKCLASS
+
+\ifdefined\BEAMERCLASS
+    \usepackage{multimedia}
+    \usetheme{default}
+    \usecolortheme{dove}
+    \usefonttheme{serif}
+    \setbeamertemplate{bibliography item}{\insertbiblabel}
+    \newcounter{saveenumi}
+    \newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+    \newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\fi %BEAMERCLASS
+
+\DeclareSIUnit{\EUR}{\text{\euro}}
+\bibliography{../../../share000/comp/doc_shared/bibliography.bib}
+\newcommand{\procts}{../../../}
+
+\renewcommand{\ttdefault}{pcr}
+\lstset{
+  language={C++},
+  basicstyle=\linespread{.8}\ttfamily\footnotesize,
+  frameround=fttt,
+%  showtabs=true,
+%  tab=\rightarrowfill
+  breaklines=true,
+  prebreak={\mbox{\quad$\rhookswarrow$}}
+}
+
+%------------------------------------------------------------------------------
+
+\begin{document}
+
+\theoremstyle{remark}     \newtheorem{Note}{Note}
+\ifdefined\BOOKCLASS
+    \theoremstyle{definition} \newtheorem{definition}{Definition}
+\fi %BOOKCLASS
+\setcounter{tocdepth}{1}
+\lstMakeShortInline[language=,basicstyle=\ttfamily]!
+\newcommand{\tbc}{{\Large \{T.B.C.\}}}
+\newcommand{\ix}[1]{\index{#1}#1}
+\newcommand{\ixlc}[1]{\index{\lowercase{#1}}#1}
+\newcommand{\abbr}[1]{\underline{#1}}
+\newcommand{\rtnix}[1]{\fontfamily{cmss}\selectfont$\cdot$#1$\cdot$}
+\newcommand{\rtdef}[1]{\rtnix{#1}\index{#1@\rtnix{#1}|textbf}}
+\newcommand{\rtref}[1]{\rtnix{#1}\index{#1@\rtnix{#1}|textit}}
+\newcommand{\rtnixleft}[1]{\fontfamily{cmss}\selectfont$\cdot$#1}
+\newcommand{\rtnixright}[1]{\fontfamily{cmss}\selectfont#1$\cdot$}
+\newcommand{\rtdefleft}[1]{\rtnixleft{#1}\index{#1@\rtnix{#1}|textbf}}
+\newcommand{\rtrefright}[1]{\rtnixright{#1}\index{#1@\rtnix{#1}|textit}}
+\newcommand{\rtdep}[2]{\rtdefleft{#1}$\rightarrow$\rtrefright{#2}}
